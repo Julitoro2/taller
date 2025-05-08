@@ -1,0 +1,10 @@
+[
+    {
+      "station_id": "station_1",
+      "timestamp": "2025-05-06T12:00:00Z",
+      "temperature": 25.3,
+      "humidity": 60.5,
+      "wind_speed": 5.2
+    }
+  ]
+  

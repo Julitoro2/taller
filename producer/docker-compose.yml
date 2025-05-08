@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"         # Puerto para comunicación entre servicios
+      - "15672:15672"       # Interfaz web de administración
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: always
+
+  producer:
+    build:
+      context: .
+    container_name: producer
+    environment:
+      - RABBITMQ_HOST=rabbitmq  # Dirección del servicio RabbitMQ
+    volumes:
+      - ./messages:/app/messages  # Monta la carpeta de mensajes
+    depends_on:
+      - rabbitmq
+    restart: always
+
+volumes:
+  rabbitmq_data:
